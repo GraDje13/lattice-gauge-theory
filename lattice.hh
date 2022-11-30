@@ -8,13 +8,12 @@ using namespace std;
 
 class Lattice {
 private:
-    vector<vector<vector<vector<PhaseVector>>>> lattice;
-    const int width;
+    vector<vector<vector<vector<PhaseVector>>>> lattice; // store the phase vectors in 4 dimension lattice
+    const int width; // store the width to be used as modulus in index operations.
 
 public:
     Lattice(int, bool unordered = false);
-    double average_action();
-    PhaseVector read_index(int, int, int, int);
+    double average_action(); // Function to compute the average action per plaquette
 };
 
 #endif // LATTICE_H_

@@ -17,7 +17,7 @@ Lattice::Lattice(int size, bool unordered)
                 for (int k = 0; k < width; k++) {
                     for (int l = 0; l < width; l++) {
                         lattice[i][j][k][l] = PhaseVector(true);
-                    }
+                    } // I wanted to have this in the constructor delegation, but it doesn't work
                 }
             }
         }
@@ -26,6 +26,7 @@ Lattice::Lattice(int size, bool unordered)
 
 double Lattice::average_action()
 {
+    // In 4d, there are 6 plaquettes per vertex
     int num_plaq = 6 * pow(width, 4);
     double sum = 0;
 
@@ -54,9 +55,4 @@ double Lattice::average_action()
     }
 
     return sum / num_plaq;
-}
-
-PhaseVector Lattice::read_index(int i, int j, int k, int l)
-{
-    return lattice[i][j][k][l];
 }
