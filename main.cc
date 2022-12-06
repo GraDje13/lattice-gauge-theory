@@ -157,6 +157,7 @@ int main(int argc, char* argv[])
         H5File file(SAVE_FILE_NAME, H5F_ACC_TRUNC);
 
         // TODO: saving metadata can be moved to the start of the simulation
+        // TODO: there is probably a better way to save single numbers
 
         hsize_t measurements_size[1] = { hsize_t(measurements) };
         hsize_t beta_size[1] = { 1 };
