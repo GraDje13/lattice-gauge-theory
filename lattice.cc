@@ -70,8 +70,6 @@ double Lattice::average_action()
             for (int k = 0; k < width; k++) {
                 for (int l = 0; l < width; l++) {
 
-                    // cout << "i: " << i << " j: " << j << " k: " << k << " l: " << l << endl;
-
                     // sum over all plaquettes at given vertex
                     for (int m = 0; m < 3; m++) {
                         for (int n = m + 1; n < 4; n++) {
@@ -92,10 +90,12 @@ double Lattice::average_action()
 
 double Lattice::sample_theta(double alpha, double beta, gsl_rng* rng)
 {
+    // function to sample theta
     double prefactor = alpha * beta;
 
+    // sample until accepted
     while (true) {
-        double sample_x = -1 + (1 / prefactor) * log(1 + (exp(2 * prefactor) - 1) * gsl_ran_flat(rng, 0, 1));
+        double sample_x = -1 + (1 / prefactor) * log(1 + (exp(2 * prefactor) - 1) * gsl_ran_flat(rng, 0, 1)); // This is just the inverse of Z
         if (gsl_ran_flat(rng, 0, 1) < acceptance_probability(sample_x, prefactor)) {
             double theta = (M_PI / 2) * (1 - sample_x);
 
@@ -111,7 +111,7 @@ double Lattice::sample_theta(double alpha, double beta, gsl_rng* rng)
 
 double Lattice::acceptance_probability(double x, double prefactor) // acceptance probability.
 {
-    return exp(prefactor * (cos((M_PI / 2) * (1 - x)) - x)) / exp(ACCEPTANCE_CONSTANT * prefactor);
+    return exp(prefactor * (cos((M_PI / 2) * (1 - x)) - x)) / exp(ACCEPTANCE_CONSTANT * prefactor); // this computes Q(x) /Q_MAX
 }
 
 void Lattice::heatbath_update(double beta, gsl_rng* rng)
